@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>test</title>
+    <link rel="stylesheet" type="text/css" href="/lib/bootstrap/css/metro-bootstrap.min.css">
+    <link rel="stylesheet" href="/lib/bootstrap/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/lib/work/work.css">
+    <script type="text/javascript" src="/lib/jquery/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+    <script type="text/javascript" src="/lib/d3js/d3.min.js"></script>
+    <script type="text/javascript" src="/lib/dna/strand.js"></script>
+    <script type="text/javascript" src="/lib/dna/group.js"></script>
+    <script type="text/javascript" src="/lib/dna/workspace.js"></script>
+    <script type="text/javascript">
+        window.onload = function() {
+            console.log(d3.version);
+            var canvas = d3.select("div[id=canvas]").append("svg");
+            canvas.attr("id","test");
+            var groups = [
+                new Group("ThreeArm1"),
+                new Group("ThreeArm2")
+            ];
+            groups[0].addStrand(new Strand("",32));
+            groups[0].addStrand(new Strand("",32));
+            groups[0].addStrand(new Strand("",32));
+            groups[1].addStrand(new Strand("",32));
+            groups[1].addStrand(new Strand("",32));
+            groups[1].addStrand(new Strand("",32));
+            console.log(groups);
+            groups[0].strands["Strand0"].addMatch(
+                groups[0].strands["Strand1"], 0, 10
+            );
+            elements = canvas.selectAll("text").data(groups);
+            elements.enter().append("text").text(function(d){return d.id;}).
+                    attr("x", function(d,i){return 0;}).
+                    attr("y", function(d){return 40+d.cnt*40;});
+            var line = d3.svg.line()
+                    .x(function(d) { return x(d.date); })
+                    .y(function(d) { return y(d.pv); })
+                    .interpolate('monotone');
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h3>Test Strand&Group</h3>
+        <div id="canvas">
+
+        </div>
+    </div>
+</body>
+</html>

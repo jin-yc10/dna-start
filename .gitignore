@@ -1,0 +1,4 @@
+.idea
+site/.idea
+three_site/.idea
+*.pyc

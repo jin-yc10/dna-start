@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>BACKBONE</title>
+    <link rel="stylesheet" href="/three/css/dn3.css">
+    <style>
+        #model-list {
+            width: 70%;
+            height: 100%;
+            border: 1px;
+            border-color: #000000;
+        }
+    </style>
+</head>
+<body>
+<div id="model-list">
+    <ul id="list">
+        <li>test1</li>
+    </ul>
+</div>
+<div id="three">
+
+</div>
+<div id="gui-test-panel">
+    <input class="test-block" id="add-element" type="button" value="Add element"/>
+</div>
+</body>
+<script type="application/javascript" src="/three/lib/jquery-1.11.3.min.js"></script>
+<script type="application/javascript" src="/three/lib/plugins.js"></script>
+<script type="application/javascript" src="/three/lib/three.min.js"></script>
+<script type="application/javascript" src="/three/lib/DAT.GUI.min.js"></script>
+<script type="application/javascript" src="/three/lib/underscore-min.js"></script>
+<script type="application/javascript" src="/three/lib/backbone-min.js"></script>
+<script>
+    var EVENT = {
+        ADD_ELEMENT: "event/add_element"
+    };
+    $(document).ready(function(){
+        console.log("ready");
+        var add_element_btn = $("#add-element");
+        add_element_btn.bind("click", function(){
+            $.publish(EVENT.ADD_ELEMENT);
+        });
+        var DNA_Model = Backbone.Model.extend({
+            initialize: function() { console.log("dna_models initialize"); }
+        });
+        var DNA_View = Backbone.View.extend({
+            el: $("#list"),
+            event: {
+                "click li" : "on_li_click"
+            },
+            initialize: function() {
+                _.bindAll(this, "add_li"); // prevent from context missing
+                console.log("dna_view initialize");
+                this.el = $(this.el);
+                this.el.find("li").bind("click", this.on_li_click);
+                $.subscribe(EVENT.ADD_ELEMENT, this.add_li );
+            },
+            render:function() {
+                console.log("dna_view render");
+            },
+            add_li : function(){
+                var newLi = document.createElement("li");
+                newLi.innerText = "test_dynamic_add";
+                var el = $("#list");
+                el.append(newLi);
+                $(newLi).on("click", this.on_li_click);
+            },
+            on_li_click: function(e) {
+                console.log(e.currentTarget);
+            }
+        });
+
+        var my_model = new DNA_Model();
+        var my_dna_view = new DNA_View();
+        my_dna_view.render();
+    });
+</script>
+</html>
