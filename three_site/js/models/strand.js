@@ -11,16 +11,8 @@ DN3.Strand = Backbone.Model.extend({
     // 5' => 3'
     end3: {}, // 3' end, can link to 1 strand end5
     end5: {}, // the opposite of 3', this link will generate a virtual link
-    matches: [], //
-    /**
-     * ThreeJS Part
-     */
-    startPosition: {},
-    direction: {},
-    /* endPosition = startPosition + direction * length */
-    endPosition: (function() {
-        return {};
-    })()
+    matches: [], // the matches
+    line: null
 });
 
 DN3.StrandMatch = Backbone.Model.extend({

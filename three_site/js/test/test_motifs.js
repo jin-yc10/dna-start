@@ -9,5 +9,6 @@ DN3.Test.ThreeArmPlane = (function(){
      * \\ // 1,2  3,4
      *  ||     5,6
      */
+    var s1 = new DN3.Strand();
     return {};
 })();

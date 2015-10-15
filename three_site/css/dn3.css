@@ -109,26 +109,47 @@ canvas {
 }
 
 #ztree-title {
-background-color: rgb(232, 232, 232);
-border-bottom-color: rgb(221, 221, 221);
-border-bottom-style: solid;
-border-bottom-width: 1px;
-color: rgb(85, 85, 85);
-cursor: pointer;
-font-family: 'Lucida Grande', sans-serif;
-font-size: 12px;
-font-style: normal;
-font-variant: normal;
-font-weight: normal;
-height: 27px;
-line-height: 27px;
-margin: 0;
-overflow-x: hidden;
-overflow-y: hidden;
-padding-bottom: 0;
-padding-left: 20px;
-padding-right: 4px;
-padding-top: 0;
-text-align: left;
-text-shadow: none;
+    background-color: rgb(232, 232, 232);
+    border-bottom-color: rgb(221, 221, 221);
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    color: rgb(85, 85, 85);
+    cursor: pointer;
+    font-family: 'Lucida Grande', sans-serif;
+    font-size: 12px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    height: 27px;
+    line-height: 27px;
+    margin: 0;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    padding-bottom: 0;
+    padding-left: 20px;
+    padding-right: 4px;
+    padding-top: 0;
+    text-align: left;
+    text-shadow: none;
+}
+
+p.lib {
+    height: 40px;
+    border: 0;
+    background: #cccccc;
+    margin-top: 5px;
+    text-align: center;
+    font-family: BlinkMacSystemFont;
+    font-size: 12px;
+    display: flex;
+    justify-content: center; /* align horizontal */
+    align-items: center; /* align vertical */
+}
+
+p.lib:hover {
+    background: #999999;
+}
+
+p.lib:active {
+    background: #555555;
 }
