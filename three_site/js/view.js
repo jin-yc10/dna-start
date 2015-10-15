@@ -20,7 +20,6 @@ DN3.Viewport = function(parameters) {
     this.renderer.setSize( _width, _height );
     this.renderer.setClearColor( 0xeeeeee, 1.0 );
 
-
     this.camera = new THREE.PerspectiveCamera( 60, _width / _height, 1, 10000 );
     this.camera.position.x = 500;
     this.camera.position.y = 250;
@@ -57,12 +56,6 @@ DN3.Viewport = function(parameters) {
         that.renderer.render( that.scene, that.camera );
     };
 
-    this.render = function() {
-        var delta = clock.getDelta();
-        that.controls.update();
-        that.renderer.render( that.scene, that.camera );
-    };
-
     this.animate = function() {
         requestAnimationFrame( that.animate );
         that.render();
@@ -81,4 +74,10 @@ DN3.Viewport = function(parameters) {
         that.renderer.setSize( width, height );
         that.render();
     };
+
+    DN3.Events.on(DN3.Events.ADD_THREE_ARM, function(e,d){
+        console.log('view -> on DN3.Events.ADD_THREE_ARM', d);
+        d.userData.t = new Date().getTime();
+        that.scene.add(d);
+    });
 };

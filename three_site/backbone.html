@@ -3,7 +3,7 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>BACKBONE</title>
-    <link rel="stylesheet" href="/three/css/dn3.css">
+    <link rel="stylesheet" href="/three/css/zTreeStyle.css">
     <style>
         #model-list {
             width: 70%;
@@ -20,61 +20,97 @@
     </ul>
 </div>
 <div id="three">
-
+</div>
+<div id="ztree_container" style="text-align:left;">
+    <ul id="ztree" class="ztree" style="border: 1px solid #617775;overflow-y: scroll;height: 500px;"></ul>
 </div>
 <div id="gui-test-panel">
     <input class="test-block" id="add-element" type="button" value="Add element"/>
 </div>
 </body>
 <script type="application/javascript" src="/three/lib/jquery-1.11.3.min.js"></script>
-<script type="application/javascript" src="/three/lib/plugins.js"></script>
-<script type="application/javascript" src="/three/lib/three.min.js"></script>
-<script type="application/javascript" src="/three/lib/DAT.GUI.min.js"></script>
-<script type="application/javascript" src="/three/lib/underscore-min.js"></script>
-<script type="application/javascript" src="/three/lib/backbone-min.js"></script>
+<!--<script type="application/javascript" src="/three/lib/plugins.js"></script>-->
+<!--<script type="application/javascript" src="/three/lib/three.min.js"></script>-->
+<!--<script type="application/javascript" src="/three/lib/underscore-min.js"></script>-->
+<!--<script type="application/javascript" src="/three/lib/backbone-min.js"></script>-->
+<script type="application/javascript" src="/three/lib/jquery.ztree.all-3.5.min.js"></script>
 <script>
     var EVENT = {
         ADD_ELEMENT: "event/add_element"
     };
     $(document).ready(function(){
         console.log("ready");
-        var add_element_btn = $("#add-element");
-        add_element_btn.bind("click", function(){
-            $.publish(EVENT.ADD_ELEMENT);
-        });
-        var DNA_Model = Backbone.Model.extend({
-            initialize: function() { console.log("dna_models initialize"); }
-        });
-        var DNA_View = Backbone.View.extend({
-            el: $("#list"),
-            event: {
-                "click li" : "on_li_click"
-            },
-            initialize: function() {
-                _.bindAll(this, "add_li"); // prevent from context missing
-                console.log("dna_view initialize");
-                this.el = $(this.el);
-                this.el.find("li").bind("click", this.on_li_click);
-                $.subscribe(EVENT.ADD_ELEMENT, this.add_li );
-            },
-            render:function() {
-                console.log("dna_view render");
-            },
-            add_li : function(){
-                var newLi = document.createElement("li");
-                newLi.innerText = "test_dynamic_add";
-                var el = $("#list");
-                el.append(newLi);
-                $(newLi).on("click", this.on_li_click);
-            },
-            on_li_click: function(e) {
-                console.log(e.currentTarget);
-            }
-        });
+//        var add_element_btn = $("#add-element");
+//        add_element_btn.bind("click", function(){
+//            $.publish(EVENT.ADD_ELEMENT);
+//        });
+//        var DNA_Model = Backbone.Model.extend({
+//            initialize: function() { console.log("dna_models initialize"); }
+//        });
+//        var DNA_View = Backbone.View.extend({
+//            el: $("#list"),
+//            event: {
+//                "click li" : "on_li_click"
+//            },
+//            initialize: function() {
+//                _.bindAll(this, "add_li"); // prevent from context missing
+//                console.log("dna_view initialize");
+//                this.el = $(this.el);
+//                this.el.find("li").bind("click", this.on_li_click);
+//                $.subscribe(EVENT.ADD_ELEMENT, this.add_li );
+//            },
+//            render:function() {
+//                console.log("dna_view render");
+//            },
+//            add_li : function(){
+//                var newLi = document.createElement("li");
+//                newLi.innerText = "test_dynamic_add";
+//                var el = $("#list");
+//                el.append(newLi);
+//                $(newLi).on("click", this.on_li_click);
+//            },
+//            on_li_click: function(e) {
+//                console.log(e.currentTarget);
+//            }
+//        });
+//
+//        var my_model = new DNA_Model();
+//        var my_dna_view = new DNA_View();
+//        my_dna_view.render();
 
-        var my_model = new DNA_Model();
-        var my_dna_view = new DNA_View();
-        my_dna_view.render();
+        var setting = {
+            edit: {
+                enable: true,
+                drag: {
+                    isCopy : true,
+                    isMove : true
+                }
+            }
+        };
+        var znodes =[
+            {
+                id:1,name:"所有老师",open:false,//这里false为默认关闭,true打开
+                children:[
+                    {id:2,name:"测试老师",phone:"123456789101"},
+                    {id:3,name:"大老师",phone:"15623545621"}
+                ]
+            },
+            {
+                id:4,name:"一班",open:true,
+                children:[
+                    {id:5,name:"小花",phone:"25364215211"},
+                    {id:6,name:"小绿",phone:"365241253"}
+                ]
+            },
+            {
+                id:7,name:"二班",open:true,
+                children:[
+                    {id:8,name:"小家",phone:"25364215211"},
+                    {id:9,name:"小沙",phone:"365241253"}
+                ]
+            }
+        ];
+        $.fn.zTree.init($('#ztree'), setting, znodes );
     });
 </script>
 </html>

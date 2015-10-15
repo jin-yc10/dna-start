@@ -32,6 +32,7 @@ application = tornado.web.Application([
     (r"/three", ThreeHandler),
     (r"/backbone", BackboneHandler),
     (r"/three/lib/(.*)", tornado.web.StaticFileHandler, {"path": "three_site/lib/"}),
+    (r"/three/img/(.*)", tornado.web.StaticFileHandler, {"path": "three_site/img/"}),
     (r"/three/js/(.*)", tornado.web.StaticFileHandler, {"path": "three_site/js/"}),
     (r"/three/css/(.*)", tornado.web.StaticFileHandler, {"path": "three_site/css/"}),
 ], **settings)

@@ -3,15 +3,11 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>Code - DN3</title>
-    <link rel="stylesheet" href="/three/css/dn3.css">
-    <link rel="stylesheet" href="/three/css/jqtree.css">
 </head>
 <body>
 <div id="gui-left-container">
-    <div class="hierarchy-container">
-        <div class="title"><span class="icon-tree-view"></span>Hierarchy</div>
-        <div id="tree"></div>
-    </div>
+    <ul id="ztree-title">Title</ul>
+    <ul id="ztree" class="ztree" style="overflow-y: scroll;"></ul>
 </div>
 <div id="gui-test-panel">
     <input class="test-block" type="button" value="Add element"/>
@@ -19,13 +15,19 @@
 </div>
 </body>
 <script type="application/javascript" src="/three/lib/jquery-1.11.3.min.js"></script>
+<script type="application/javascript" src="/three/lib/jquery.ztree.all-3.5.min.js"></script>
 <script type="application/javascript" src="/three/lib/plugins.js"></script>
 <script type="application/javascript" src="/three/lib/three.min.js"></script>
 <script type="application/javascript" src="/three/lib/DAT.GUI.min.js"></script>
+<link rel="stylesheet" href="/three/css/dn3.css">
+<link rel="stylesheet" href="/three/css/jqtree.css">
+<link rel="stylesheet" href="/three/css/zTreeStyle.css">
 <script type="application/javascript" src="/three/lib/underscore-min.js"></script>
 <script type="application/javascript" src="/three/lib/backbone-min.js"></script>
 <script type="application/javascript" src="/three/js/app.js"></script>
 <script type="application/javascript" src="/three/js/view.js"></script>
+<script type="application/javascript" src="/three/js/models/motif.js"></script>
+<script type="application/javascript" src="/three/js/models/strand.js"></script>
 <script type="application/javascript" src="/three/js/views/hierarchy.js"></script>
 <script type="application/javascript" src="/three/js/views/strand_lib_view.js"></script>
 <script type="application/javascript" src="/three/js/ui.js"></script>

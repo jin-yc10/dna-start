@@ -11,6 +11,7 @@ DN3.ViewportControls = function ( object, domElement ) {
     this.domElement = ( domElement !== undefined ) ? domElement : document;
 
     // API
+    this.mouse = {};
 
     this.enabled = true;
 
@@ -207,7 +208,10 @@ DN3.ViewportControls = function ( object, domElement ) {
     }
 
     function mousemove( event ) {
-
+        _this.mouse = {
+            'x':event.clientX,
+            'y':event.clientY
+        };
         if ( ! _this.enabled ) return;
         if ( _keyPressed ) {
             _rotateStart = _rotateEnd = _this.getMouseProjectionOnBall( event.clientX, event.clientY );

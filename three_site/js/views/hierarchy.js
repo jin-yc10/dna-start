@@ -3,58 +3,57 @@
  */
 
 DN3.Hierarchy = Backbone.View.extend({
-    el: $('<li class="list-hierarchy"></li>'),
+    el: $('#ztree'),
     data: [
-        {id: 456,label:"1"},
-        {id: 457,label:"1"}
+        {   id:1,name:"所有老师",open:false,//这里false为默认关闭,true打开
+            children:[
+                {id:2,name:"测试老师",phone:"123456789101"},
+                {id:3,name:"大老师",phone:"15623545621"}]
+        },
+        {   id:4,name:"一班",open:true,
+            children:[
+                {id:5,name:"小花",phone:"25364215211"},
+                {id:6,name:"小绿",phone:"365241253"}]
+        },
+        {   id:7,name:"二班",open:true,
+            children:[
+                {id:8,name:"小家",phone:"25364215211"},
+                {id:9,name:"小沙",phone:"365241253"}]
+        }
     ],
+    setting : {
+        edit: {
+            enable: true,
+            drag: {
+                isCopy : true,
+                isMove : true
+            }
+        }
+    },
     $tree: null,
     $title: null,
     initialize: function() {
-        console.log("DN3.Hierarchy initialize");
-//        _.bindAll(this);
         this.el = $(this.el);
-        this.$tree = $('#tree');
-        this.$tree.tree({
-            autoOpen: false,
-            dragAndDrop: true,
-            selectable: true,
-            onCreateLi: function( node, $li ) {
-            }
-        });
-        this.$tree.tree('loadData', this.data);
-        this.$tree.on( 'tree.move', this.movedNode );
-        this.$tree.on( 'tree.click', this.clickedNode );
-        this.$title = $('.hierarchy-container .title');
-        this.$title.on( 'click', this.toggleVisibility );
+        this.$title = $('#ztree-title');
+        console.log(this.$title);
+        this.$title.on( 'click', _.bind(this.toggleVisibility, this) );
     },
     clickedNode: function(event) {
-        console.log(this); // this = node[the clicked node]
-        var target = event.capturedTarget,
-            _class = target[0].className;
-        node = event.node;
-        console.log(node);
-        if ( _class === 'jqtree-title' ) {
-            // The clicked node is 'event.node'
-            $('#tree').tree('selectNode', node, true);
-        }
     },
     movedNode: function(event) {
-
     },
     render: function() {
-        console.log(this);
-        this.$tree.tree('loadData', this.data);
-        return this;
     },
     toggleVisibility: function() {
         console.log("DN3.Hierarchy toggleVisibility");
-        $('#tree').toggle();
-        $title = $('.hierarchy-container .title');
+        $title = $('#ztree-title');
+        console.log(this);
         if ( $title.hasClass('closed') ) {
             $title.removeClass('closed');
+            this.el.show();
         } else {
             $title.addClass('closed');
+            this.el.hide();
         }
     }
 });
