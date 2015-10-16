@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>EDITOR</title>
+    <link href="/css/main.css" rel="stylesheet">
+    <link href="/css/light.css" rel="stylesheet">
+    <script type="application/javascript" src="/js/lib/jquery-1.11.3.min.js"></script>
+    <script type="application/javascript" src="/js/lib/signals.min.js"></script>
+    <script type="application/javascript" src="/js/lib/Sortable.min.js"></script>
+    <script type="application/javascript" src="/js/lib/underscore-min.js"></script>
+    <script type="application/javascript" src="/js/lib/three.js"></script>
+    <script type="application/javascript" src="/js/lib/TransformControls.js"></script>
+    <script type="application/javascript" src="/js/lib/EditorControls.js"></script>
+    <script type="application/javascript" src="/js/lib/RaytracingRenderer.js"></script>
+</head>
+<body>
+</body>
+<script type="application/javascript" src="/js/lib/ui.js"></script>
+<script type="application/javascript" src="/js/lib/ui.three.js"></script>
+<script type="application/javascript" src="/js/Config.js"></script>
+<script type="application/javascript" src="/js/History.js"></script>
+<script type="application/javascript" src="/js/Editor.js"></script>
+<script type="application/javascript" src="/js/MenuBar.js"></script>
+<script type="application/javascript" src="/js/SideBar.js"></script>
+<script type="application/javascript" src="/js/Viewport.js"></script>
+<script type="application/javascript" src="/js/ToolBar.js"></script>
+<script type="application/javascript">
+    window.URL = window.URL || window.webkitURL;
+    window.BlobBuilder = window.BlobBuilder || window.WebKitBlobBuilder || window.MozBlobBuilder;
+    var editor = new Editor();
+    var viewport = new Viewport( editor ); document.body.appendChild( viewport.dom );
+    var menuBar = new MenuBar( editor ); document.body.appendChild( menuBar.dom );
+    var sideBar = new Sidebar( editor ); document.body.appendChild( sideBar.dom );
+    var toolBar = new Toolbar( editor ); document.body.appendChild( toolBar.dom );
+    editor.signals.rendererChanged.dispatch(new THREE.WebGLRenderer());
+    editor.signals.windowResize.dispatch();
+    editor.signals.themeChanged.dispatch('css/light.css');
+</script>
+</html>
