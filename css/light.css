@@ -32,7 +32,7 @@ input.Number {
 #viewport {
     position: absolute;
     top: 32px;
-    left: 0px;
+    left: 240px;
     right: 240px;
     bottom: 32px;
 }
@@ -95,6 +95,8 @@ input.Number {
     padding: 5px 0px;
     background: #eee;
     width: 150px;
+    z-index: 100;
+    box-shadow: 3px 3px 3px #727272;
 }
 
 #menubar .menu:hover .options {
@@ -157,6 +159,8 @@ input.Number {
     border-top: 1px solid #ccc;
 }
 
+
+
 #toolbar {
     position: absolute;
     left: 0px;
@@ -178,4 +182,48 @@ input.Number {
 
 #toolbar button {
     margin-right: 6px;
+}
+
+#libbar {
+    position: absolute;
+    left: 0px;
+    top: 32px;
+    bottom: 0px;
+    width: 240px;
+    background: #eee;
+    overflow: auto;
+}
+
+#libbar * {
+    vertical-align: middle;
+}
+#libbar .libItem {
+
+}
+#libbar input,
+#libbar textarea,
+#libbar select {
+    border: 1px solid transparent;
+    color: #444;
+}
+
+#libbar .Panel {
+    margin-bottom: 10px;
+}
+
+#libbar .Panel.collapsed {
+    margin-bottom: 0px;
+}
+
+#libbar > .Panel {
+    color: #888;
+    padding: 10px;
+    border-top: 1px solid #ccc;
+}
+#libbar .TestItem {
+    width: 36px;
+    height: 36px;
+    margin-top: 2px;
+    margin-left: 2px;
+    background-color: #333333;
 }
