@@ -10,6 +10,7 @@ var Sidebar = function ( editor ) {
     container.setId( 'sidebar' );
 
     container.add( new Sidebar.Scene( editor ) );
+    var outliner = new Sidebar.Outliner( editor );
     return container;
 };
 
@@ -19,7 +20,7 @@ var Sidebar = function ( editor ) {
 
 Sidebar.Scene = function ( editor ) {
     var signals = editor.signals;
-
+    var RootContainer = new UI.Panel();
     var container = new UI.CollapsiblePanel();
     container.setCollapsed( editor.config.getKey( 'ui/sidebar/scene/collapsed' ) );
     container.onCollapsedChange( function ( boolean ) {
@@ -27,21 +28,58 @@ Sidebar.Scene = function ( editor ) {
     } );
 
     container.addStatic( new UI.Text( 'SCENE' ) );
-    container.add( new UI.Break() );
 
-    var ignoreObjectSelectedSignal = false;
-    var outliner = new UI.Outliner( editor );
-    outliner.onChange( function () {
-        ignoreObjectSelectedSignal = true;
-        editor.selectById( parseInt( outliner.getValue() ) );
-        ignoreObjectSelectedSignal = false;
-    } );
-    outliner.onDblClick( function () {
-        editor.focusById( parseInt( outliner.getValue() ) );
-    } );
-    container.add( outliner );
-    container.add( new UI.Break() );
+    var ZTree = new UI.Panel();
 
-    return container;
+    ZTree.dom.id = 'ZTreeContainer';
+    var Info = new UI.CollapsiblePanel();
+    Info.addStatic( new UI.Text( 'INFO' ) );
+    Info.setCollapsed(true);
+    // editor.selectById( parseInt( outliner.getValue() ) );
+    // editor.focusById( parseInt( outliner.getValue() ) );
+    container.add( ZTree );
+    RootContainer.add(container);
+    RootContainer.add(Info);
+
+    var setting = {
+        view: {
+            showLine: false,
+            showIcon: false,
+            selectedMulti: false,
+            dblClickExpand: false
+        },
+        data: {
+            simpleData: {
+                enable: true
+            }
+        },
+        callback: {
+        }
+    };
+    var zNodes = [
+    ];
+    var treeContainer = $(ZTree.dom);
+    var treeObj = $("<ul id=\"ZTree\" class=\"ztree\"></ul>");
+    treeContainer.append(treeObj);
+    $.fn.zTree.init(treeObj, setting, zNodes);
+
+    signals.objectAdded.add(function(object){
+
+    });
+    signals.objectChanged.add(function(object){
+
+    });
+    signals.objectSelected.add(function(object){
+
+    });
+    signals.objectRemoved.add(function(object){
+
+    });
+
+    return RootContainer;
 };
 
+Sidebar.Outliner = function(editor) {
+    var signals = editor.signals;
+
+};

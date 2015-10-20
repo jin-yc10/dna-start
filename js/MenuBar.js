@@ -28,6 +28,7 @@ MenuBar.File = function( editor ) {
     option.setClass( 'option' );
     option.setTextContent( 'New' );
     option.onClick( function () {
+        console.log("Click option New");
     } );
     options.add( option );
 

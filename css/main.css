@@ -144,3 +144,7 @@ textarea, input { outline: none; } /* osx */
 .MeshPhongMaterial {
     color: #ffaa88;
 }
+
+.Content {
+    padding: 3px;
+}

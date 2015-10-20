@@ -96,32 +96,32 @@ var Viewport = function ( editor ) {
             }
             render();
         }
-    };
+    }
     function onMouseDown( event ) {
         event.preventDefault();
         var array = getMousePosition( container.dom, event.clientX, event.clientY );
         onDownPosition.fromArray( array );
         document.addEventListener( 'mouseup', onMouseUp, false );
-    };
+    }
     function onMouseUp( event ) {
         var array = getMousePosition( container.dom, event.clientX, event.clientY );
         onUpPosition.fromArray( array );
         handleClick();
         document.removeEventListener( 'mouseup', onMouseUp, false );
-    };
+    }
     function onTouchStart( event ) {
         var touch = event.changedTouches[ 0 ];
         var array = getMousePosition( container.dom, touch.clientX, touch.clientY );
         onDownPosition.fromArray( array );
         document.addEventListener( 'touchend', onTouchEnd, false );
-    };
+    }
     function onTouchEnd( event ) {
         var touch = event.changedTouches[ 0 ];
         var array = getMousePosition( container.dom, touch.clientX, touch.clientY );
         onUpPosition.fromArray( array );
         handleClick();
         document.removeEventListener( 'touchend', onTouchEnd, false );
-    };
+    }
     function onDoubleClick( event ) {
         var array = getMousePosition( container.dom, event.clientX, event.clientY );
         onDoubleClickPosition.fromArray( array );
@@ -130,7 +130,7 @@ var Viewport = function ( editor ) {
             var intersect = intersects[ 0 ];
             signals.objectFocused.dispatch( intersect.object );
         }
-    };
+    }
     container.dom.addEventListener( 'mousedown', onMouseDown, false );
     container.dom.addEventListener( 'touchstart', onTouchStart, false );
     container.dom.addEventListener( 'dblclick', onDoubleClick, false );

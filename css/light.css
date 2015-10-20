@@ -128,7 +128,7 @@ input.Number {
     position: absolute;
     right: 0px;
     top: 32px;
-    bottom: 0px;
+    bottom: 32px;
     width: 240px;
     background: #eee;
     overflow: auto;
@@ -163,8 +163,9 @@ input.Number {
 
 #toolbar {
     position: absolute;
+    border-top:thin solid #b1b1b1;
     left: 0px;
-    right: 240px;
+    right: 0px;
     bottom: 0px;
     height: 32px;
     background: #eee;
@@ -221,9 +222,13 @@ input.Number {
     border-top: 1px solid #ccc;
 }
 #libbar .TestItem {
-    width: 36px;
     height: 36px;
-    margin-top: 2px;
-    margin-left: 2px;
-    background-color: #333333;
+    margin: 4px;
+    background-color: #eeeeee;
+    box-shadow: 1px 1px 1px #888888;
+}
+
+#ZTree {
+    height: 400px;
+    background-color: #cccccc;
 }

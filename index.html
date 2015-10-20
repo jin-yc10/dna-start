@@ -5,6 +5,11 @@
     <title>EDITOR</title>
     <link href="css/main.css" rel="stylesheet">
     <link href="css/light.css" rel="stylesheet">
+    <link href="css/zTreeStyle.css" rel="stylesheet">
+    <style type="text/css">
+        .ztree li span.button.switch.level0 {visibility:hidden; width:1px;}
+        .ztree li ul.level0 {padding:0; background:none;}
+    </style>
     <script type="application/javascript" src="js/lib/jquery-1.11.3.min.js"></script>
     <script type="application/javascript" src="js/lib/signals.min.js"></script>
     <script type="application/javascript" src="js/lib/Sortable.min.js"></script>
@@ -13,6 +18,7 @@
     <script type="application/javascript" src="js/lib/TransformControls.js"></script>
     <script type="application/javascript" src="js/lib/EditorControls.js"></script>
     <script type="application/javascript" src="js/lib/RaytracingRenderer.js"></script>
+    <script type="application/javascript" src="js/lib/jquery.ztree.all-3.5.min.js"></script>
 </head>
 <body>
 </body>
@@ -29,6 +35,9 @@
 <script type="application/javascript">
     window.URL = window.URL || window.webkitURL;
     window.BlobBuilder = window.BlobBuilder || window.WebKitBlobBuilder || window.MozBlobBuilder;
+    Number.prototype.format = function (){
+        return this.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+    };
     var editor = new Editor();
     var viewport = new Viewport( editor ); document.body.appendChild( viewport.dom );
     var menuBar = new MenuBar( editor ); document.body.appendChild( menuBar.dom );
