@@ -64,16 +64,16 @@ Sidebar.Scene = function ( editor ) {
     $.fn.zTree.init(treeObj, setting, zNodes);
 
     signals.objectAdded.add(function(object){
-
+        console.log("Add "+object);
     });
     signals.objectChanged.add(function(object){
-
+        console.log("Change "+object);
     });
     signals.objectSelected.add(function(object){
-
+        console.log("Select "+object);
     });
     signals.objectRemoved.add(function(object){
-
+        console.log("Remove "+object);
     });
 
     return RootContainer;
