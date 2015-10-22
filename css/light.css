@@ -134,10 +134,6 @@ input.Number {
     overflow: auto;
 }
 
-#sidebar * {
-    vertical-align: middle;
-}
-
 #sidebar input,
 #sidebar textarea,
 #sidebar select {
@@ -230,5 +226,4 @@ input.Number {
 
 #ZTree {
     height: 400px;
-    background-color: #cccccc;
 }

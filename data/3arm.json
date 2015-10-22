@@ -1,0 +1,45 @@
+{
+    "name": "3arm",
+    "group": {
+        "End3": {
+            "box":"box"
+        },
+        "End5": {
+            "box":"box"
+        },
+        "line": {
+
+        }
+    }
+}
+/*
+ castShadow: false
+ children: Array[3]
+ eulerOrder: (...)
+ frustumCulled: true
+ id: 75
+ matrix: THREE.Matrix4
+ matrixAutoUpdate: true
+ matrixWorld: THREE.Matrix4
+ matrixWorldNeedsUpdate: false
+ modelViewMatrix: THREE.Matrix4
+ name: ""
+ normalMatrix: THREE.Matrix3
+ parent: THREE.Scene
+ position: THREE.Vector3
+ quaternion: THREE.Quaternion
+ receiveShadow: false
+ renderOrder: 0
+ rotation: THREE.Euler
+ rotationAutoUpdate: true
+ scale: THREE.Vector3
+ type: "Object3D"
+ up: THREE.Vector3
+ useQuaternion: (...)
+ userData: Object
+ uuid: "4AAE08CB-D4D8-4CE4-B276-6C07EEF79E9D"
+ visible: true
+ __proto__: THREE.Object3D
+ .
+
+ */

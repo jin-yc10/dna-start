@@ -55,6 +55,7 @@ LibBar.Scene = function ( editor ) {
         var material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
         var End3 = new THREE.Mesh( geometry, material );
         End3.translateOnAxis(new THREE.Vector3(0,0,1), 10);
+        End3.parent = group;
 
         var End5 = new THREE.Mesh( geometry, material );
         End5.translateOnAxis(new THREE.Vector3(-0,-0,-1), 10);
@@ -72,14 +73,25 @@ LibBar.Scene = function ( editor ) {
         group.add(End3);
         group.add(End5);
         group.add(Strand);
-
-        End3.userData.object = group;
-        End5.userData.object = group;
-        Strand.userData.object = group;
+        group.userData.type = "Strand";
+        End3.userData.pick_parent = true;
+        End5.userData.pick_parent = true;
+        Strand.userData.pick_parent = true;
 
         editor.addObject(group);
     });
     basicContainer.add(StrandItem);
+
+    var GroupItem = new UI.Panel();
+    GroupItem.setClass('TestItem');
+    GroupItem.setTextContent( 'EmptyGroup' );
+    GroupItem.onClick(function() {
+        var group = new THREE.Object3D();
+        group.userData.type = "Group";
+        editor.addObject(group);
+    });
+    basicContainer.add(GroupItem);
+
 
     rootContainer.add(basicContainer);
     rootContainer.add(container);

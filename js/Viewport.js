@@ -85,9 +85,9 @@ var Viewport = function ( editor ) {
             var intersects = getIntersects( onUpPosition, objects );
             if ( intersects.length > 0 ) {
                 var object = intersects[ 0 ].object;
-                if ( object.userData.object !== undefined ) {
+                if ( object.userData.pick_parent !== undefined ) {
                     // helper
-                    editor.select( object.userData.object );
+                    editor.select( object.parent );
                 } else {
                     editor.select( object );
                 }
@@ -310,16 +310,6 @@ var Viewport = function ( editor ) {
     function animate() {
         requestAnimationFrame( animate );
         // animations
-        if ( THREE.AnimationHandler.animations.length > 0 ) {
-            THREE.AnimationHandler.update( 0.016 );
-            for ( var i = 0, l = sceneHelpers.children.length; i < l; i ++ ) {
-                var helper = sceneHelpers.children[ i ];
-                if ( helper instanceof THREE.SkeletonHelper ) {
-                    helper.update();
-                }
-            }
-            render();
-        }
     }
     function render() {
         sceneHelpers.updateMatrixWorld();
