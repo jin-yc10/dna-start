@@ -26,8 +26,8 @@
 <script type="application/javascript" src="js/History.js"></script>
 <script type="application/javascript" src="js/Editor.js"></script>
 <script type="application/javascript" src="js/MenuBar.js"></script>
-<script type="application/javascript" src="js/LibBar.js"></script>
-<script type="application/javascript" src="js/SideBar.js"></script>
+<script type="application/javascript" src="js/SideBar.Info.js"></script>
+<script type="application/javascript" src="js/SideBar.Lib.js"></script>
 <script type="application/javascript" src="js/Viewport.js"></script>
 <script type="application/javascript" src="js/ToolBar.js"></script>
 <script type="application/javascript">
@@ -39,8 +39,8 @@
     var editor = new Editor();
     var viewport = new Viewport( editor ); document.body.appendChild( viewport.dom );
     var menuBar = new MenuBar( editor ); document.body.appendChild( menuBar.dom );
-    var sideBar = new Sidebar( editor ); document.body.appendChild( sideBar.dom );
-    var libBar = new LibBar( editor ); document.body.appendChild( libBar.dom );
+    var sideBar = new SIDEBAR.Container( editor ); document.body.appendChild( sideBar.dom );
+    var libBar = new SIDEBAR.Lib.Container( editor ); document.body.appendChild( libBar.dom );
     var toolBar = new Toolbar( editor ); document.body.appendChild( toolBar.dom );
     editor.signals.rendererChanged.dispatch(new THREE.WebGLRenderer());
     editor.signals.windowResize.dispatch();

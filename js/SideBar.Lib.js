@@ -1,20 +1,14 @@
 /**
  * Created by jin-yc10 on 15/10/17.
  */
-
-var LibBar = function ( editor ) {
+SIDEBAR.Lib = {};
+SIDEBAR.Lib.Container = function ( editor ) {
     var container = new UI.Panel();
     container.setId( 'libbar' );
-
-    container.add( new LibBar.Scene( editor ) );
+    container.add( new SIDEBAR.Lib.Scene( editor ) );
     return container;
 };
-
-/**
- * @author mrdoob / http://mrdoob.com/
- */
-
-LibBar.Scene = function ( editor ) {
+SIDEBAR.Lib.Scene = function ( editor ) {
     var signals = editor.signals;
     var rootContainer = new UI.Panel();
     var container = new UI.CollapsiblePanel();
@@ -74,6 +68,8 @@ LibBar.Scene = function ( editor ) {
         group.add(End5);
         group.add(Strand);
         group.userData.type = "Strand";
+        group.userData['End3Box'] = End3;
+        group.userData['End5Box'] = End5;
         End3.userData.pick_parent = true;
         End5.userData.pick_parent = true;
         Strand.userData.pick_parent = true;
@@ -92,22 +88,38 @@ LibBar.Scene = function ( editor ) {
     });
     basicContainer.add(GroupItem);
 
+    var ConnectionItem = new UI.Panel();
+    ConnectionItem.setClass('TestItem');
+    ConnectionItem.setTextContent( 'Connection' );
+    ConnectionItem.onClick(function() {
+        var lineMaterial = new THREE.LineBasicMaterial({
+            color: 0x00ffff,
+            linewidth: 2
+        });
+        var lineGeometry = new THREE.Geometry();
+        lineGeometry.vertices.push(
+            new THREE.Vector3(0,0,10),
+            new THREE.Vector3(-0,-0,-10)
+        );
+        var Strand = new THREE.Line(lineGeometry, lineMaterial);
+        Strand.userData.type = "Connection";
+        editor.addObject(Strand);
+    });
+    basicContainer.add(ConnectionItem);
 
     rootContainer.add(basicContainer);
     rootContainer.add(container);
     return rootContainer;
 };
-
-LibBar.LibItem = function( editor ) {
+SIDEBAR.Lib.LibItem = function( editor ) {
     UI.Element.call( this );
     var scope = this;
     var dom = document.createElement( 'div' );
     dom.className = 'libItem';
     this.dom = dom;
 };
-
-LibBar.LibItem.prototype = Object.create(UI.Element.prototype);
-LibBar.LibItem.prototype.constructor = LibBar.LibItem;
+SIDEBAR.Lib.LibItem.prototype = Object.create(UI.Element.prototype);
+SIDEBAR.Lib.LibItem.prototype.constructor = SIDEBAR.Lib.LibItem;
 
 
 

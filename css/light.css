@@ -33,7 +33,7 @@ input.Number {
     position: absolute;
     top: 32px;
     left: 240px;
-    right: 240px;
+    right: 300px;
     bottom: 32px;
 }
 
@@ -129,7 +129,7 @@ input.Number {
     right: 0px;
     top: 32px;
     bottom: 32px;
-    width: 240px;
+    width: 300px;
     background: #eee;
     overflow: auto;
 }
@@ -225,5 +225,5 @@ input.Number {
 }
 
 #ZTree {
-    height: 400px;
+    height: 200px;
 }

@@ -6,6 +6,35 @@ UI.Element = function (dom) {
     this.dom = dom;
 };
 UI.Element.prototype = {
+    add: function () {
+        for ( var i = 0; i < arguments.length; i ++ ) {
+            var argument = arguments[ i ];
+            if ( argument instanceof UI.Element ) {
+                this.dom.appendChild( argument.dom );
+            } else {
+                console.error( 'UI.Element:', argument, 'is not an instance of UI.Element.' )
+            }
+        }
+        return this;
+    },
+
+    remove: function () {
+        for ( var i = 0; i < arguments.length; i ++ ) {
+            var argument = arguments[ i ];
+            if ( argument instanceof UI.Element ) {
+                this.dom.removeChild( argument.dom );
+            } else {
+                console.error( 'UI.Element:', argument, 'is not an instance of UI.Element.' )
+            }
+        }
+        return this;
+    },
+
+    clear: function () {
+        while ( this.dom.children.length ) {
+            this.dom.removeChild( this.dom.lastChild );
+        }
+    },
     setId: function (id) {
         this.dom.id = id;
         return this;
@@ -570,3 +599,10 @@ UI.Dialog.prototype.showModal = function () {
     this.dom.showModal();
     return this;
 };
+UI.Span = function () {
+    UI.Element.call( this );
+    this.dom = document.createElement( 'span' );
+    return this;
+};
+UI.Span.prototype = Object.create( UI.Element.prototype );
+UI.Span.prototype.constructor = UI.Span;

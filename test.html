@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <script type="application/javascript" src="js/lib/jquery-1.11.3.min.js"></script>
+    <script type="application/javascript" src="js/lib/signals.min.js"></script>
+    <script type="application/javascript" src="js/lib/Sortable.min.js"></script>
+    <script type="application/javascript" src="js/lib/underscore-min.js"></script>
+    <script type="application/javascript" src="js/lib/three.js"></script>
+    <title>Playground</title>
+</head>
+<body>
+    Playground
+    <div id="output">
+
+    </div>
+    <script type="application/javascript">
+        var lineMaterial = new THREE.LineBasicMaterial({
+            color: 0x00ffff,
+            linewidth: 2
+        });
+        var lineGeometry = new THREE.Geometry();
+        lineGeometry.vertices.push(
+                new THREE.Vector3(0,0,10),
+                new THREE.Vector3(-0,-0,-10)
+        );
+        var Strand = new THREE.Line(lineGeometry, lineMaterial);
+        Strand.userData.type = "Connection";
+        console.log(Strand.toJSON({
+            geometries:[],
+            materials:[]
+        }));
+    </script>
+</body>
+</html>

@@ -30,6 +30,16 @@ var Viewport = function ( editor ) {
             if ( editor.helpers[ object.id ] !== undefined ) {
                 editor.helpers[ object.id ].update();
             }
+            if( object.userData['end5'] && object.userData['end5'].linkObj ) {
+                object.userData['end5'].linkObj.geometry.vertices[0] = object.userData['End5Box'].getWorldPosition();
+                object.userData['end5'].linkObj.geometry.verticesNeedUpdate = true;
+//                console.log(object.userData['end5'].linkObj.geometry.vertices[0]);
+            }
+            if( object.userData['end3'] && object.userData['end3'].linkObj ) {
+                object.userData['end3'].linkObj.geometry.vertices[1] = object.userData['End3Box'].getWorldPosition();
+                object.userData['end3'].linkObj.geometry.verticesNeedUpdate = true;
+//                console.log(object.userData['end3'].linkObj.geometry.vertices[1]);
+            }
         }
         render();
     } );

@@ -271,5 +271,23 @@ Editor.prototype = {
             scene: this.scene.toJSON(),
             scripts: this.scripts
         };
+    },
+    // BIO PART
+    link: function(end3, end5) {
+        if(!end3.userData['end5'] && !end5.userData['end3']) {
+            end3.userData['end5'] = {};
+            end5.userData['end3'] = {};
+            end3.userData['end5'].uuid = end5.uuid;
+            end5.userData['end3'].uuid = end3.uuid;
+            var lineMaterial = new THREE.LineBasicMaterial({color: 0xff7777,linewidth: 1});
+            var lineGeometry = new THREE.Geometry();
+            lineGeometry.vertices.push(
+                end3.userData['End5Box'].getWorldPosition(),
+                end5.userData['End3Box'].getWorldPosition());
+            var linkObj = new THREE.Line(lineGeometry, lineMaterial);
+            end3.userData['end5'].linkObj = linkObj;
+            end5.userData['end3'].linkObj = linkObj;
+            editor.addObject(linkObj);
+        }
     }
-}
+};
