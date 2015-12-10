@@ -12,6 +12,7 @@ SIDEBAR.Container = function ( editor ) {
 /**
  * @author mrdoob / http://mrdoob.com/
  */
+
 SIDEBAR.Scene = function ( editor ) {
     var signals = editor.signals;
     var container = new UI.CollapsiblePanel();
@@ -20,35 +21,29 @@ SIDEBAR.Scene = function ( editor ) {
         editor.config.setKey( 'ui/sidebar/scene/collapsed', boolean );
     } );
     container.addStatic( new UI.Text( 'SCENE' ) );
+
+    // Tree Ops
     var ZTree = new UI.Panel();
     ZTree.dom.id = 'ZTreeContainer';
-    // editor.selectById( parseInt( outliner.getValue() ) );
-    // editor.focusById( parseInt( outliner.getValue() ) );
     container.add( ZTree );
-    var zNodes =[
-    ];
-    function dropPrev(treeId, nodes, targetNode) {
-        return true;
+    var zNodes =[];
+    function dropPrev(treeId, nodes, targetNode)    {   return true;    }
+    function dropInner(treeId, nodes, targetNode)   {
+        if( targetNode ) {
+            return targetNode.type !== "Strand" && targetNode.type !== "Connection";
+        } else {
+            return false;
+        }
     }
-    function dropInner(treeId, nodes, targetNode) {
-        console.log(typeof(targetNode));
-        return targetNode.type !== "Strand" && targetNode.type !== "Connection";
-    }
-    function dropNext(treeId, nodes, targetNode) {
-        return true;
-    }
-    function beforeDrag(treeId, treeNodes) {
-        return treeNodes.level !== 0;
-    }
-    function beforeDragOpen(treeId, treeNode) {
-//        autoExpandNode = treeNode;
-        return true;
-    }
+    function dropNext(treeId, nodes, targetNode)    {   return true;    }
+    function beforeDrag(treeId, treeNodes)          {   return treeNodes.level !== 0;   }
+    function beforeDragOpen(treeId, treeNode)       {   return true;    }
     function beforeDrop(treeId, treeNodes, targetNode, moveType, isCopy) {
         return targetNode.type !== "Strand";
     }
-    function onDrag(event, treeId, treeNodes) {
-    }
+    function onDrag(event, treeId, treeNodes)       {}
+
+    // Drag-Drop Element in ZTree
     function onDrop(event, treeId, treeNodes, targetNode, moveType, isCopy) {
         console.log({event:'event.onDrop','message':event.target});
         var selected = editor.selected;
@@ -72,10 +67,11 @@ SIDEBAR.Scene = function ( editor ) {
                 event.target.value = treeNodes[0].id;
                 editor.link(selected, target);
             }
+        } else if( event.target.classList.contains('match') ) {
+
         }
     }
-    function onExpand(event, treeId, treeNode) {
-    }
+    function onExpand(event, treeId, treeNode) {    }
     var setting = {
         edit: {
             enable: true,
@@ -101,7 +97,7 @@ SIDEBAR.Scene = function ( editor ) {
         },
         callback: {
             onClick: function(event, treeId, treeNode, clickFlag) {
-                console.log("ztree onClick");
+                console.log("ZTree onClick");
                 editor.select(zNodes[treeNode.id]);
             },
             beforeClick: function(treeId, treeNode, clickFlag) {
@@ -126,9 +122,7 @@ SIDEBAR.Scene = function ( editor ) {
         isParent:true,
         name:editor.scene.name});
     signals.objectAdded.add(function(object){
-        console.log("Add "+object);
-        var parentNode = zTree.getNodeByParam("id",object.parent.uuid);
-        console.log(parentNode);
+        var parentNode = zTree.getNodeByParam("id", object.parent.uuid);
         zTree.addNodes(parentNode, {
             id:object.uuid,
             pId:parentNode.id,
@@ -139,10 +133,8 @@ SIDEBAR.Scene = function ( editor ) {
         zNodes[object.uuid] = object;
     });
     signals.objectChanged.add(function(object){
-        console.log("Change "+object);
     });
     signals.objectSelected.add(function(object){
-        console.log("Select "+object);
         if(object === null) {
             var selectNode = zTree.getSelectedNodes()[0];
             zTree.cancelSelectedNode(selectNode);
@@ -152,7 +144,6 @@ SIDEBAR.Scene = function ( editor ) {
         }
     });
     signals.objectRemoved.add(function(object){
-        console.log("Remove "+object);
     });
     return container;
 };
@@ -324,7 +315,6 @@ SIDEBAR.Info = function(editor) {
     objectVisibleRow.add( objectVisible );
     container.add( objectVisibleRow );
 
-
     //
     function updateScaleX() {
         var object = editor.selected;
@@ -446,11 +436,7 @@ SIDEBAR.Info = function(editor) {
         objectType.setValue( object.type );
         objectUUID.setValue( object.uuid );
         objectName.setValue( object.name );
-        /*
-         if ( object.parent !== null ) {
-         objectParent.setValue( object.parent.id );
-         }
-         */
+
         objectPositionX.setValue( object.position.x );
         objectPositionY.setValue( object.position.y );
         objectPositionZ.setValue( object.position.z );
@@ -491,12 +477,12 @@ SIDEBAR.Info = function(editor) {
             objectDecay.setValue( object.decay );
         }
         if ( object.userData['end3'] !== undefined ) {
-            objectEnd3.setValue( object.userData['end3'] );
+            objectEnd3.setValue( object.userData['end3'].uuid );
         } else {
             objectEnd3.setValue( 'free' );
         }
         if ( object.userData['end5'] !== undefined ) {
-            objectEnd5.setValue( object.userData['end5'] );
+            objectEnd5.setValue( object.userData['end5'].uuid );
         } else {
             objectEnd5.setValue( 'free' );
         }

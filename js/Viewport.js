@@ -33,12 +33,10 @@ var Viewport = function ( editor ) {
             if( object.userData['end5'] && object.userData['end5'].linkObj ) {
                 object.userData['end5'].linkObj.geometry.vertices[0] = object.userData['End5Box'].getWorldPosition();
                 object.userData['end5'].linkObj.geometry.verticesNeedUpdate = true;
-//                console.log(object.userData['end5'].linkObj.geometry.vertices[0]);
             }
             if( object.userData['end3'] && object.userData['end3'].linkObj ) {
                 object.userData['end3'].linkObj.geometry.vertices[1] = object.userData['End3Box'].getWorldPosition();
                 object.userData['end3'].linkObj.geometry.verticesNeedUpdate = true;
-//                console.log(object.userData['end3'].linkObj.geometry.vertices[1]);
             }
         }
         render();
@@ -97,7 +95,8 @@ var Viewport = function ( editor ) {
                 var object = intersects[ 0 ].object;
                 if ( object.userData.pick_parent !== undefined ) {
                     // helper
-                    editor.select( object.parent );
+                    editor.select(object.parent);
+                } else if( object.userData.cant_pick !== undefined) {
                 } else {
                     editor.select( object );
                 }
@@ -203,7 +202,7 @@ var Viewport = function ( editor ) {
     signals.objectSelected.add( function ( object ) {
         selectionBox.visible = false;
         transformControls.detach();
-        if ( object !== null ) {
+        if ( object !== null && object.userData.cant_pick === undefined) {
             if ( object.geometry !== undefined &&
                 object instanceof THREE.Sprite === false ) {
                 selectionBox.update( object );

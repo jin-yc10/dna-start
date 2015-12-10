@@ -8,28 +8,27 @@
     <script type="application/javascript" src="js/lib/underscore-min.js"></script>
     <script type="application/javascript" src="js/lib/three.js"></script>
     <title>Playground</title>
+    <style>
+        .dil {
+            height:140px;
+            width:140px;
+            background:#FF0000;
+            position:relative;
+            border-radius:50% 50% 50% 30;
+            left:100px;
+            animation:spin .5s infinite alternate;
+        }
+        @keyframes spin {
+            from { transform:scale(.5) }
+            to { transform:scale(.7) }
+        }
+    </style>
 </head>
 <body>
     Playground
-    <div id="output">
-
+    <div class="dil">
     </div>
     <script type="application/javascript">
-        var lineMaterial = new THREE.LineBasicMaterial({
-            color: 0x00ffff,
-            linewidth: 2
-        });
-        var lineGeometry = new THREE.Geometry();
-        lineGeometry.vertices.push(
-                new THREE.Vector3(0,0,10),
-                new THREE.Vector3(-0,-0,-10)
-        );
-        var Strand = new THREE.Line(lineGeometry, lineMaterial);
-        Strand.userData.type = "Connection";
-        console.log(Strand.toJSON({
-            geometries:[],
-            materials:[]
-        }));
     </script>
 </body>
 </html>

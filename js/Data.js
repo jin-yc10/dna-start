@@ -8,7 +8,6 @@ var Data = function(editor) {
         get: function(url) {
             $.getJSON(url,
                 function(data) {
-
                 }
             );
         }

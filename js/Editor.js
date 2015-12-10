@@ -275,6 +275,7 @@ Editor.prototype = {
     // BIO PART
     link: function(end3, end5) {
         if(!end3.userData['end5'] && !end5.userData['end3']) {
+            //
             end3.userData['end5'] = {};
             end5.userData['end3'] = {};
             end3.userData['end5'].uuid = end5.uuid;
@@ -285,9 +286,14 @@ Editor.prototype = {
                 end3.userData['End5Box'].getWorldPosition(),
                 end5.userData['End3Box'].getWorldPosition());
             var linkObj = new THREE.Line(lineGeometry, lineMaterial);
+            linkObj.userData.type = "link";
+            linkObj.userData.cant_pick = true;
             end3.userData['end5'].linkObj = linkObj;
             end5.userData['end3'].linkObj = linkObj;
             editor.addObject(linkObj);
         }
+    },
+    match: function(strand_a, strand_b) {
+
     }
 };
