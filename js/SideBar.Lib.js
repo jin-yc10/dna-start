@@ -44,37 +44,7 @@ SIDEBAR.Lib.Scene = function ( editor ) {
     StrandItem.setClass('TestItem');
     StrandItem.setTextContent( 'Strand' );
     StrandItem.onClick(function() {
-        var group = new THREE.Object3D();
-        var geometry = new THREE.BoxGeometry( 1, 1, 1 );
-        var material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
-        var End3 = new THREE.Mesh( geometry, material );
-        End3.translateOnAxis(new THREE.Vector3(0,0,1), 10);
-        End3.parent = group;
-
-        var End5 = new THREE.Mesh( geometry, material );
-        End5.translateOnAxis(new THREE.Vector3(-0,-0,-1), 10);
-
-        var lineMaterial = new THREE.LineBasicMaterial({
-            color: 0x0000ff,
-            linewidth: 3
-        });
-        var lineGeometry = new THREE.Geometry();
-        lineGeometry.vertices.push(
-            new THREE.Vector3(0,0,10),
-            new THREE.Vector3(-0,-0,-10)
-        );
-        var Strand = new THREE.Line(lineGeometry, lineMaterial);
-        group.add(End3);
-        group.add(End5);
-        group.add(Strand);
-        group.userData.type = "Strand";
-        group.userData['End3Box'] = End3;
-        group.userData['End5Box'] = End5;
-        End3.userData.pick_parent = true;
-        End5.userData.pick_parent = true;
-        Strand.userData.pick_parent = true;
-
-        editor.addObject(group);
+        editor.addObject(Bio.createStrand());
     });
     basicContainer.add(StrandItem);
 

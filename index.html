@@ -22,11 +22,13 @@
 </body>
 <script type="application/javascript" src="js/lib/ui.js"></script>
 <script type="application/javascript" src="js/lib/ui.three.js"></script>
+<script type="application/javascript" src="js/Bio.js"></script>
 <script type="application/javascript" src="js/Config.js"></script>
 <script type="application/javascript" src="js/History.js"></script>
 <script type="application/javascript" src="js/Editor.js"></script>
 <script type="application/javascript" src="js/MenuBar.js"></script>
 <script type="application/javascript" src="js/SideBar.Info.js"></script>
+<script type="application/javascript" src="js/SideBar.Info.Bio.js"></script>
 <script type="application/javascript" src="js/SideBar.Lib.js"></script>
 <script type="application/javascript" src="js/Viewport.js"></script>
 <script type="application/javascript" src="js/ToolBar.js"></script>
@@ -37,6 +39,7 @@
         return this.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
     };
     var editor = new Editor();
+    var Bio = new Bio(editor);
     var viewport = new Viewport( editor ); document.body.appendChild( viewport.dom );
     var menuBar = new MenuBar( editor ); document.body.appendChild( menuBar.dom );
     var sideBar = new SIDEBAR.Container( editor ); document.body.appendChild( sideBar.dom );

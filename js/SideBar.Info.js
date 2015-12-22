@@ -1,12 +1,13 @@
 /**
  * Created by jin-yc10 on 15/10/17.
  */
-var SIDEBAR = {};
+var SIDEBAR = {} || SIDEBAR;
 SIDEBAR.Container = function ( editor ) {
     var container = new UI.Panel();
     container.setId( 'sidebar' );
     container.add( new SIDEBAR.Scene( editor ) );
     container.add( new SIDEBAR.Info( editor ) );
+    container.add( new SIDEBAR.Info.Bio( editor ) );
     return container;
 };
 /**
@@ -56,19 +57,24 @@ SIDEBAR.Scene = function ( editor ) {
         } else if( event.target.classList.contains('end3') ) {
             // concat end3 -> end5
             // do check
-            if(! target.userData['end5'] && !selected.userData['end3']) {
+            if( !target.userData['end5'] && !selected.userData['end3'] ) {
                 event.target.value = treeNodes[0].id;
-                editor.link(target, selected);
+                Bio.link(target, selected);
             }
         } else if( event.target.classList.contains('end5') ) {
             // concat end5 -> end3
             // do check
-            if(! target.userData['end3'] && !selected.userData['end5']) {
+            if( !target.userData['end3'] && !selected.userData['end5'] ) {
                 event.target.value = treeNodes[0].id;
-                editor.link(selected, target);
+                Bio.link(selected, target);
             }
         } else if( event.target.classList.contains('match') ) {
-
+            // add match between target and selected
+            // if both two strand has not been matched
+            if( !target.userData['match'] && !selected.userData['match'] ) {
+                event.target.value = treeNodes[0].id;
+                Bio.match(target, selected);
+            }
         }
     }
     function onExpand(event, treeId, treeNode) {    }
@@ -123,14 +129,17 @@ SIDEBAR.Scene = function ( editor ) {
         name:editor.scene.name});
     signals.objectAdded.add(function(object){
         var parentNode = zTree.getNodeByParam("id", object.parent.uuid);
-        zTree.addNodes(parentNode, {
-            id:object.uuid,
-            pId:parentNode.id,
-            isParent:false,
-            name:object.type + " - " + object.userData.type,
-            type:object.userData.type
-        });
-        zNodes[object.uuid] = object;
+        if( object.userData.type == 'Strand') {
+            // only put strand in zTree
+            zTree.addNodes(parentNode, {
+                id:object.uuid,
+                pId:parentNode.id,
+                isParent:false,
+                name:object.type + " - " + object.userData.type,
+                type:object.userData.type
+            });
+            zNodes[object.uuid] = object;
+        }
     });
     signals.objectChanged.add(function(object){
     });
@@ -205,23 +214,7 @@ SIDEBAR.Info = function(editor) {
     objectNameRow.add( new UI.Text( 'Name' ).setWidth( '90px' ) );
     objectNameRow.add( objectName );
     container.add( objectNameRow );
-    // user data
-    var objectEnd3Row = new UI.Panel();
-    var objectEnd3 = new UI.Input().setWidth( '150px' ).setFontSize( '12px').onChange( function () {
-        editor.nameObject( editor.selected, objectName.getValue() );
-    } );
-    objectEnd3.dom.classList.add('end3');
-    objectEnd3Row.add( new UI.Text( 'End3' ).setWidth( '90px' ) );
-    objectEnd3Row.add( objectEnd3 );
-    container.add( objectEnd3Row );
-    var objectEnd5Row = new UI.Panel();
-    var objectEnd5 = new UI.Input().setWidth( '150px' ).setFontSize( '12px' ).onChange( function () {
-        editor.nameObject( editor.selected, objectName.getValue() );
-    } );
-    objectEnd5.dom.classList.add('end5');
-    objectEnd5Row.add( new UI.Text( 'End5' ).setWidth( '90px' ) );
-    objectEnd5Row.add( objectEnd5 );
-    container.add( objectEnd5Row );
+
     // position
     var objectPositionRow = new UI.Panel();
     var objectPositionX = new UI.Number().setWidth( '50px' ).onChange( update );
@@ -386,6 +379,7 @@ SIDEBAR.Info = function(editor) {
             if ( object.decay !== undefined ) {
                 object.decay = objectDecay.getValue();
             }
+
             object.visible = objectVisible.getValue();
             signals.objectChanged.dispatch( object );
         }
@@ -475,16 +469,6 @@ SIDEBAR.Info = function(editor) {
         }
         if ( object.decay !== undefined ) {
             objectDecay.setValue( object.decay );
-        }
-        if ( object.userData['end3'] !== undefined ) {
-            objectEnd3.setValue( object.userData['end3'].uuid );
-        } else {
-            objectEnd3.setValue( 'free' );
-        }
-        if ( object.userData['end5'] !== undefined ) {
-            objectEnd5.setValue( object.userData['end5'].uuid );
-        } else {
-            objectEnd5.setValue( 'free' );
         }
         objectVisible.setValue( object.visible );
         updateTransformRows( object );
